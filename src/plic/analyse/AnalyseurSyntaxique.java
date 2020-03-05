@@ -3,10 +3,13 @@ package plic.analyse;
 import plic.exception.ErreurSyntaxique;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class AnalyseurSyntaxique {
 
-    private AnalyseurLexical analex;
+    private final AnalyseurLexical analex;
+    private static final String[] terminaux = {"programme", "entier", "tableau", "ecrire", "lire", "si",
+                                                "alors", "sinon", "pour", "dans", "repeter", "tantque", "non"};
     private String uniteCourante;
 
     public AnalyseurSyntaxique(File file) {
@@ -135,7 +138,11 @@ public class AnalyseurSyntaxique {
     }
 
     private boolean estIdf() {
-        return (uniteCourante.matches("[a-zA-Z]+"));
+        return (uniteCourante.matches("[a-zA-Z]+") && !estTerminal());
+    }
+
+    private boolean estTerminal() {
+        return Arrays.asList(terminaux).contains(uniteCourante);
     }
 
     private boolean estCsteEntiere() {

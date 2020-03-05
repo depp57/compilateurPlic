@@ -1,9 +1,0 @@
-programme source2 {
-    entier a ;
-    entier b ;
-
-    a := 2 ;
-    b := 3 ;
-
-    ecrire b ;
-}
