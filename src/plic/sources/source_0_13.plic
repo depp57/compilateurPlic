@@ -1,12 +1,13 @@
-//dkqdtrsaztyjdesqkz
-//dkqdtrsaztyjdesqkz
-programme k {
-entier test ;
+//Un commentaire
+programme commentaires { // Deux commentaires
 
-//lire test ;
+                entier x ;
 
-ecrire test ;
-}
-//dkqdtrsaztyjdesqkz
-//
-//dkqdtrsaztyjdesqkz
+                ecrire x ;
+
+                x := 5 ;
+
+
+    } //////// La fin //////////// EOF
+    //////// La fin //////////// EOF
+    //////// La fin //////////// EOF

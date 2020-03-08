@@ -1,18 +1,24 @@
-//mdr ?
-programme test {
+//Un commentaire
+programme commentaires { // Deux commentaires
+    //un autre
+
+    //Ah
+
+    entier x ; //yo
+
+    //Non
+    entier y ;
 
 
+    x := 7 ;
 
+    //x := 8 ;
 
+    //entier z ;
 
+    ecrire x ;
+} //Dernier ?
 
-entier i ;
+//Non EOF
 
-
-
-
-
-entier x ;
-
-
-}
+//////// La fin //////////// EOF

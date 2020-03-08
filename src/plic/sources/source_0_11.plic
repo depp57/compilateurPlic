@@ -1,11 +1,9 @@
-programme kkk {
-tableau [ 4 ] test ; // commentaire \\\//;
+programme plicUn {
+entier x ; //*/a*wdad
+                                entier y ;   //dw4a6d
 
-test [ 1 ] :=
-4 ;
+//ecid
 
-ecrire test ;
-
-
+x := y ;
 
 }

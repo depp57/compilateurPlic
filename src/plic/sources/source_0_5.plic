@@ -1,1 +1,3 @@
-programmmmmme
+programme EOF {
+    entier x ;
+}

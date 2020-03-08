@@ -1,22 +1,14 @@
-programme boucle {
-    //affectation
-    entier un ;
-    entier deux ;
-    un := 2 ;
-    deux := 1 ;
+//Un commentaire
+programme declarationApresInstruction { // Deux commentaires
 
-    tantque ( deux < un ) {
-        deux :=
-        deux
+                entier x ;
 
-        +
-        1
-        ;
+
+                x := 5 ;
+
+           y := 7 ;
+
+           ecrire y ;
+                entier y ;
+
     }
-
-    entier i ;
-
-    pour i dans 1 .. 3 repeter {
-        ecrire i ;
-    }
-}

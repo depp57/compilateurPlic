@@ -1,12 +1,25 @@
+//Un commentaire
+programme commentaires { // Deux commentaires//////// Lafin //////////// EOF
+    //un autre
 
-programme k {
-entier test ;
+    //Ah
 
-test  = 1;
+    entier x ; //yo
 
-ecrire test // ecrire
-
-//si test = 3 alors { ecrire 4 ; } sinon { ecrire 5 ;}
+    //Non
+    entier EOF ;
 
 
-}
+    EOF := 7 ;
+    EOF := 7 ; EOF := 6 ; EOF := 8 ;
+
+
+    //x := 8 ;
+    //////// Lafin //////////// EOF
+    //entier z ;
+
+    ecrire x ;
+} //Dernier ?
+
+//Non EOF t a
+//////// Lafin //////////// EOF

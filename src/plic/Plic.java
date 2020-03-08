@@ -13,7 +13,6 @@ public class Plic {
             as.analyse();
         }
         catch (ErreurSyntaxique e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }

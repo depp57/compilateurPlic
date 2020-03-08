@@ -1,6 +1,9 @@
-programme boolean {
-    //boolean
-    ecrire ( ( 1 > 2 ) et
-    ( 3 < 4 ) ou
-    non ( 2 # 4 ) ) ;
-}
+//Un commentaire
+programme MauvaisIdentifiant { // Deux commentaires
+
+                entier x5 ;
+
+
+                x5 := 5 ;
+
+    }

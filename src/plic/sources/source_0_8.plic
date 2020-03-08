@@ -1,8 +1,1 @@
-//dQzdzq d qzd qzd zqd zqd qzd
-programme dyqzyfdq {
-// dQzdzq d qzd qzd zqd zqd qzd
-//dQzdzq
-//dQzdzq
-}
-
-// ooudiqzdz
+programme test { entier x ; entier y ; x := 5 ; entier z ; ecrire x ; }

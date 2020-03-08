@@ -52,11 +52,11 @@ class Moulinette {
             if (output != null && attendu == null || (output == null && attendu != null))
                 juste = false;
 
-            else if (output != null && attendu != null)
+            else if (output != null)
                 juste = output.startsWith(attendu);
 
             if (!juste) {
-                System.out.println("ERREUR : " + path + " Eu : " + output + " attendu : " + attendu);
+                System.out.println("ERREUR: " + path + " " + output);
                 errorCounter++;
             }
 
