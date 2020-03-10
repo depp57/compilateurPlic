@@ -1,15 +1,12 @@
 package plic.repint;
 
-import java.util.Objects;
-
 public class Symbole {
 
     private String type;
     private int deplacement;
 
-    public Symbole(String type, int deplacement) {
+    public Symbole(String type) {
         this.type = type;
-        this.deplacement = deplacement;
     }
 
     public String getType() {
@@ -18,5 +15,13 @@ public class Symbole {
 
     public int getDeplacement() {
         return deplacement;
+    }
+
+    public void setDeplacement(int deplacement) {
+        this.deplacement = deplacement;
+    }
+
+    public String toString() {
+        return "Symbole : " + type + " deplacement : " + deplacement;
     }
 }

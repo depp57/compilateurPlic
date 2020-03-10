@@ -10,7 +10,7 @@ programme commentaires { // Deux commentaires
     entier y ;
 
 
-    x := 7 ;
+    z := 7 ;
 
     //x := 8 ;
 

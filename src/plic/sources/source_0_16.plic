@@ -1,0 +1,1 @@
+programme doubleDeclaration { entier x ; entier x ; x := 5 ; ecrire x ; }

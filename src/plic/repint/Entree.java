@@ -1,17 +1,23 @@
 package plic.repint;
 
+import plic.analyse.Token;
+
 import java.util.Objects;
 
 public class Entree {
 
-    private String idf;
+    private Token token;
+
+    public Entree(Token idf) {
+        this.token = idf;
+    }
 
     public Entree(String idf) {
-        this.idf = idf;
+        token = new Token(idf, 0);
     }
 
     public String getIdf() {
-        return idf;
+        return token.getWord();
     }
 
     @Override
@@ -19,11 +25,16 @@ public class Entree {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entree entree = (Entree) o;
-        return idf.equals(entree.idf);
+        return token.getWord().equals(entree.token.getWord());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idf);
+        return Objects.hash(token.getWord());
+    }
+
+    @Override
+    public String toString() {
+        return "Entrée : " + token;
     }
 }

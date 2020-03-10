@@ -1,5 +1,7 @@
 package plic.analyse;
 
+import java.util.Objects;
+
 /**
  * Mémorise un mot et le numéro de la ligne où il apparait dans le fichier
  */
@@ -39,5 +41,19 @@ public class Token {
      */
     public String toString() {
         return "'" + word + "' (ligne:" + line + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Token token = (Token) o;
+        return line == token.line &&
+                word.equals(token.word);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(word, line);
     }
 }
