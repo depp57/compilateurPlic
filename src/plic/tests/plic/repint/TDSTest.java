@@ -1,30 +1,30 @@
 package plic.repint;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import plic.analyse.Token;
 import plic.exception.DoubleDeclaration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TDSTest {
 
-    private TDS instance;
-
-    @Before
-    public void setUp() throws Exception {
-        instance = TDS.getInstance();
+    @BeforeAll
+    public static void setUp() throws DoubleDeclaration {
+        TDS.getInstance().ajouter(new Entree("test"), new Symbole("entier"));
     }
 
-    @Test(expected = DoubleDeclaration.class)
-    public void testAjouterDoubleDeclaration() throws DoubleDeclaration {
-        instance.ajouter(new Entree(new Token("test", 0)), new Symbole("entier"));
-        instance.ajouter(new Entree(new Token("test", 0)), new Symbole("entier"));
+    @Test
+    public void testAjouterDoubleDeclaration() {
+        assertThrows(DoubleDeclaration.class, () ->
+                TDS.getInstance().ajouter(new Entree("test"), new Symbole("entier")));
     }
 
     @Test
     public void testAjouter() throws DoubleDeclaration {
-        instance.ajouter(new Entree(new Token("test", 0)), new Symbole("entier"));
-        instance.ajouter(new Entree(new Token("test1", 0)), new Symbole("entier"));
+        TDS.getInstance().ajouter(new Entree("test2"), new Symbole("entier"));
 
-        assert instance.nbDeclarations() == 2;
+        assertEquals(2, TDS.getInstance().nbDeclarations());
     }
 }

@@ -18,6 +18,7 @@ public class Plic {
             if (!file.exists()) throw new ErreurSyntaxique(fileName + " n'a pas été trouvé");
             Bloc bloc = new AnalyseurSyntaxique(file).analyse();
             bloc.verifier();
+            System.out.println(bloc.toMips());
             System.out.println(bloc); //TODO POUR VERIFIER
             System.out.println(TDS.getInstance().toString());
         }

@@ -116,7 +116,7 @@ public class AnalyseurSyntaxique {
     private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
         String type = uniteCourante.getWord();
         analyseType();
-        Token idf = uniteCourante;
+        String idf = uniteCourante.getWord();
         analyseIDF();
         analyseTerminal(";");
         TDS.getInstance().ajouter(new Entree(idf), new Symbole(type));

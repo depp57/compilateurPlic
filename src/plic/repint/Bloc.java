@@ -21,6 +21,12 @@ public class Bloc {
         for (Instruction i : instructions) i.verifier();
     }
 
+    public String toMips() {
+        StringBuilder mips = new StringBuilder();
+        for (Instruction i : instructions) mips.append(i.toMips());
+        return mips.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder("Bloc {\n");

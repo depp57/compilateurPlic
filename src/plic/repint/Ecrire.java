@@ -12,7 +12,7 @@ public class Ecrire extends Instruction {
 
     @Override
     void verifier() throws ErreurSemantique {
-
+        expression.verifier();
     }
 
     @Override
