@@ -67,9 +67,7 @@ public class AnalyseurSyntaxique {
 
     private void analyseAffectation() throws ErreurSyntaxique {
         analyseIDF();
-        if (!uniteCourante.getWord().equals(":="))
-            throw new ErreurSyntaxique("':=' attendu pour une affectation | uniteCourante : " + uniteCourante);
-        uniteCourante = analex.next();
+        analyseTerminal(":=");
         analyseExpression();
         analyseTerminal(";");
     }
