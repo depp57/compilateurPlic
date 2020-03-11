@@ -19,9 +19,9 @@ public class TDS {
         return instance;
     }
 
-    public void ajouter(Entree entree, Symbole symbole) throws DoubleDeclaration {
+    public void ajouter(Entree entree, Symbole symbole, int ligne) throws DoubleDeclaration {
         if (map.containsKey(entree))
-            throw new DoubleDeclaration(entree +  " est déjà déclarée");
+            throw new DoubleDeclaration("Entrée déjà déclarée : '" + entree + "' (ligne:" + ligne + ")");
 
         allouerMemoire(symbole);
         map.put(entree, symbole);
@@ -38,6 +38,10 @@ public class TDS {
 
     public int nbDeclarations() {
         return map.size();
+    }
+
+    public int getCptDepl() {
+        return cptDepl;
     }
 
     public String toString() {

@@ -36,6 +36,12 @@ public class Token {
     }
 
     /**
+     * Getteur de la ligne
+     * @return int La ligne à laquelle apparait le token dans le fichier
+     */
+    public int getLine() { return line; }
+
+    /**
      * Affiche de manière visible le Token
      * @return String contient l'affichage de manière visible
      */

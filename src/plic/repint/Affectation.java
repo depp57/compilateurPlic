@@ -20,7 +20,9 @@ public class Affectation extends Instruction {
 
     @Override
     String toMips() {
-        return null;
+        return "\t#" + idf.toMips() + " = " + expression.toMips() +
+                "\n\tli $t0, " + expression.toMips() +
+                "\n\tsw $t0, " + idf.getDeplacement() + "($s7)\n";
     }
 
     public String toString() {

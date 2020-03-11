@@ -117,14 +117,15 @@ public class AnalyseurSyntaxique {
         String type = uniteCourante.getWord();
         analyseType();
         String idf = uniteCourante.getWord();
+        int ligne = uniteCourante.getLine();
         analyseIDF();
         analyseTerminal(";");
-        TDS.getInstance().ajouter(new Entree(idf), new Symbole(type));
+        TDS.getInstance().ajouter(new Entree(idf), new Symbole(type), ligne);
     }
 
     private Idf analyseIDF() throws ErreurSyntaxique {
         if (estIdf()) {
-            Idf idf = new Idf(uniteCourante.getWord());
+            Idf idf = new Idf(uniteCourante);
             uniteCourante = analex.next();
             return idf;
         }

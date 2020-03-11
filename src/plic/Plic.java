@@ -8,7 +8,6 @@ import plic.repint.Bloc;
 import plic.repint.TDS;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class Plic {
 
@@ -18,9 +17,7 @@ public class Plic {
             if (!file.exists()) throw new ErreurSyntaxique(fileName + " n'a pas été trouvé");
             Bloc bloc = new AnalyseurSyntaxique(file).analyse();
             bloc.verifier();
-            System.out.println(bloc.toMips());
-            System.out.println(bloc); //TODO POUR VERIFIER
-            System.out.println(TDS.getInstance().toString());
+            System.out.print(bloc.toMips());
         }
         catch (ErreurSyntaxique | DoubleDeclaration | ErreurSemantique e) {
             System.out.println(e.getMessage());

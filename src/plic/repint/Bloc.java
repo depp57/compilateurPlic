@@ -1,7 +1,6 @@
 package plic.repint;
 
 import plic.exception.ErreurSemantique;
-import plic.exception.ErreurSyntaxique;
 
 import java.util.ArrayList;
 
@@ -23,8 +22,18 @@ public class Bloc {
 
     public String toMips() {
         StringBuilder mips = new StringBuilder();
-        for (Instruction i : instructions) mips.append(i.toMips());
+        mips.append(mipsInit());
+        for (Instruction i : instructions) mips.append(i.toMips()).append("\n");
         return mips.toString();
+    }
+
+    private String mipsInit() {
+        return ".data\n\tnewline : .asciiz \"\\n\" #caractère ascii représentant le retour à la ligne\n" +
+                ".text\n" +
+                "main :\n" +
+                "\tmove $s7, $sp\n" +
+                "\t#allocation de la mémoire pour les déclarations de variables\n" +
+                "\tadd $sp, $sp, " + TDS.getInstance().getCptDepl() + "\n\n";
     }
 
     @Override

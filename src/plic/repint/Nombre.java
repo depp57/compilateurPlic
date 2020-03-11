@@ -19,4 +19,9 @@ public class Nombre extends Expression {
     public String toString() {
         return super.toString() + " nombre : " + val;
     }
+
+    @Override
+    String toMips() {
+        return String.valueOf(val);
+    }
 }

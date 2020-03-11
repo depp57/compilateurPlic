@@ -29,6 +29,6 @@ public class Entree {
 
     @Override
     public String toString() {
-        return "Entrée : " + idf;
+        return "Entree : " + idf;
     }
 }

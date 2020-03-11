@@ -1,0 +1,5 @@
+programme ecrireNonDeclare {
+    entier x ;
+    x := 5 ;
+    ecrire z ;
+}

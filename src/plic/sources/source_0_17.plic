@@ -1,0 +1,7 @@
+programme doubleEcrire {
+    entier x ;
+    x := 5 ;
+    ecrire x ;
+    x := 7 ;
+    ecrire x ;
+}

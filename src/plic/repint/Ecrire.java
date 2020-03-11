@@ -17,7 +17,16 @@ public class Ecrire extends Instruction {
 
     @Override
     String toMips() {
-        return null;
+        final String NEW_LINE = "\t#retour à la ligne\n" +
+                                "\tli $v0, 4\n" +
+                                "\tla $a0, newline\n" +
+                                "\tsyscall";
+        int deplacement = TDS.getInstance().identifier(new Entree(expression.toMips())).getDeplacement();
+        return  "\t#ecrire " + expression.toMips() +
+                "\n\tli $v0, 1" +
+                "\n\tlw $t0, " + deplacement + "($s7)" +
+                "\n\tmove $a0, $t0" +
+                "\n\tsyscall\n\n" + NEW_LINE +"\n";
     }
 
     @Override
