@@ -1,0 +1,29 @@
+//Un commentaire
+programme commentaires { // Deux commentaires//////// Lafin //////////// EOF
+    //un autre
+
+    //Ah
+
+    entier x ; //yo
+
+    //Non
+    entier EOF ;
+
+entier y ;
+
+    EOF := 7 ;
+    EOF := x ; EOF := 6 ; EOF := x ;
+
+    y := 3 ;
+    //x := 8 ;
+    //////// Lafin //////////// EOF
+    //entier z ;
+
+    ecrire x ;
+    ecrire EOF ;
+    ecrire y ;
+    ecrire 5 ;
+} //Dernier ?
+
+//Non EOF t a
+//////// Lafin //////////// EOF

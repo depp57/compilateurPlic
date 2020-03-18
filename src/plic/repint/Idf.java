@@ -3,7 +3,7 @@ package plic.repint;
 import plic.analyse.Token;
 import plic.exception.ErreurSemantique;
 
-public class Idf extends Expression {
+public class Idf extends Acces {
 
     private String nom;
     private int ligne;
@@ -19,17 +19,27 @@ public class Idf extends Expression {
             throw new ErreurSemantique("Idf non déclaré : '" + nom + "' (ligne:" + ligne + ")");
     }
 
-    int getDeplacement() {
+    @Override
+    public int getDeplacement() {
         return TDS.getInstance().identifier(new Entree(nom)).getDeplacement();
     }
 
     @Override
+    public String getAdresse() {
+        return "la $a0, " + getDeplacement() + "($s7)";
+    }
+
+    @Override
     public String toString() {
-        return super.toString() + " idf : " + nom;
+        return nom;
     }
 
     @Override
     String toMips() {
-        return nom;
+        return "lw $v0, " + getDeplacement() + "($s7)";
+    }
+
+    public int getLigne() {
+        return ligne;
     }
 }

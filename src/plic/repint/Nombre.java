@@ -11,17 +11,15 @@ public class Nombre extends Expression {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {
-
-    }
+    void verifier() throws ErreurSemantique {}
 
     @Override
     public String toString() {
-        return super.toString() + " nombre : " + val;
+        return String.valueOf(val);
     }
 
     @Override
     String toMips() {
-        return String.valueOf(val);
+        return "li $v0, " +  val;
     }
 }

@@ -21,11 +21,11 @@ public class Ecrire extends Instruction {
                                 "\tli $v0, 4\n" +
                                 "\tla $a0, newline\n" +
                                 "\tsyscall";
-        int deplacement = TDS.getInstance().identifier(new Entree(expression.toMips())).getDeplacement();
-        return  "\t#ecrire " + expression.toMips() +
+
+        return  "\t#ecrire " + expression +
+                "\n\t" + expression.toMips() +
+                "\n\tmove $a0, $v0" +
                 "\n\tli $v0, 1" +
-                "\n\tlw $t0, " + deplacement + "($s7)" +
-                "\n\tmove $a0, $t0" +
                 "\n\tsyscall\n\n" + NEW_LINE +"\n";
     }
 

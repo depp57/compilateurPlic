@@ -1,6 +1,7 @@
 package plic.analyse;
 
 import plic.exception.DoubleDeclaration;
+import plic.exception.ErreurSemantique;
 import plic.exception.ErreurSyntaxique;
 import plic.repint.*;
 
@@ -32,7 +33,7 @@ public class AnalyseurSyntaxique {
         analex = new AnalyseurLexical(file);
     }
 
-    public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration {
+    public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         uniteCourante = analex.next();
         Bloc bloc = analyseProg();
         if (!uniteCourante.getWord().equals("EOF"))
@@ -40,7 +41,7 @@ public class AnalyseurSyntaxique {
         return bloc;
     }
 
-    private Bloc analyseProg() throws ErreurSyntaxique, DoubleDeclaration {
+    private Bloc analyseProg() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         if (!uniteCourante.getWord().equals("programme"))
             throw new ErreurSyntaxique("programme attendu | uniteCourante : " + uniteCourante);
         uniteCourante = analex.next();
@@ -64,24 +65,35 @@ public class AnalyseurSyntaxique {
         if (!estEcrire())
             throw new ErreurSyntaxique("'ecrire' attendu | uniteCourante : " + uniteCourante);
         uniteCourante = analex.next();
-        Ecrire instruction = new Ecrire(analyseIDF());
+        Ecrire instruction = new Ecrire(analyseOperande());
         analyseTerminal(";");
         return instruction;
     }
 
     private Affectation analyseAffectation() throws ErreurSyntaxique {
-        Idf idf = analyseIDF();
+        Acces acces = analyseAcces();
         analyseTerminal(":=");
         Expression exp = analyseExpression();
         analyseTerminal(";");
-        return new Affectation(exp, idf);
+        return new Affectation(acces, exp);
     }
 
-    private void analyseAcces() throws ErreurSyntaxique {
-        //TODO à modifier quand il y'aura les tableaux : idf [ EXPRESSION ]
+    private Acces analyseAcces() throws ErreurSyntaxique {
         if (!estIdf())
             throw new ErreurSyntaxique("Identificateur attendu pour un accès | uniteCourante : " + uniteCourante);
+
+        Token idf = uniteCourante;
         uniteCourante = analex.next();
+
+        if (uniteCourante.getWord().equals("[")) { //Si c'est un tableau
+            analyseTerminal("[");
+            Expression expression = analyseExpression();
+            analyseTerminal("]");
+            return new AccesTableau(new Idf(idf), expression);
+        }
+        else {
+            return new Idf(idf);
+        }
     }
 
     private Expression analyseExpression() throws ErreurSyntaxique {
@@ -91,14 +103,21 @@ public class AnalyseurSyntaxique {
 
     private Expression analyseOperande() throws ErreurSyntaxique {
         //TODO à modifier :  | ACCES | - EXPRESSION | non EXPRESSION | ( EXPRESSION )
-        if (!estCsteEntiere())
+        Expression expression;
+
+        if (estCsteEntiere()) {
+            expression = new Nombre(Integer.parseInt(uniteCourante.getWord()));
+            uniteCourante = analex.next();
+        }
+        else if (estIdf())
+            expression = analyseAcces();
+        else
             throw new ErreurSyntaxique("Mauvais opérande : " + uniteCourante);
-        Nombre nombre = new Nombre(Integer.parseInt(uniteCourante.getWord()));
-        uniteCourante = analex.next();
-        return nombre;
+
+        return expression;
     }
 
-    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
+    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         Bloc bloc = new Bloc();
         analyseTerminal("{");
 
@@ -113,14 +132,13 @@ public class AnalyseurSyntaxique {
         return bloc;
     }
 
-    private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
-        String type = uniteCourante.getWord();
-        analyseType();
+    private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+        Symbole symbole = analyseType();
         String idf = uniteCourante.getWord();
         int ligne = uniteCourante.getLine();
         analyseIDF();
         analyseTerminal(";");
-        TDS.getInstance().ajouter(new Entree(idf), new Symbole(type), ligne);
+        TDS.getInstance().ajouter(new Entree(idf), symbole, ligne);
     }
 
     private Idf analyseIDF() throws ErreurSyntaxique {
@@ -133,9 +151,30 @@ public class AnalyseurSyntaxique {
             throw new ErreurSyntaxique("Mauvais identificateur : " + uniteCourante);
     }
 
-    private void analyseType() throws ErreurSyntaxique {
-        if (estDeclaration())
-            uniteCourante = analex.next();
+    private Symbole analyseType() throws ErreurSyntaxique, ErreurSemantique {
+        if (estDeclaration()) {
+            Symbole symbole;
+            if (uniteCourante.getWord().equals("entier")) {
+                symbole = new SymboleEntier();
+                uniteCourante = analex.next();
+            }
+            else {
+                uniteCourante = analex.next();
+
+                analyseTerminal("[");
+                if (!estCsteEntiere())
+                    throw new ErreurSyntaxique("Constante entière attendue pour taille du tableau | uniteCourante : " + uniteCourante);
+                int taille = Integer.parseInt(uniteCourante.getWord());
+                if (taille <= 0)
+                    throw new ErreurSemantique("Taille de tableau <= 0 | uniteCourante : " + uniteCourante);
+                uniteCourante = analex.next();
+                analyseTerminal("]");
+
+                symbole = new SymboleTableauEntier(taille);
+            }
+
+            return symbole;
+        }
         else
             throw new ErreurSyntaxique("Mauvais type : " + uniteCourante);
     }
@@ -165,7 +204,8 @@ public class AnalyseurSyntaxique {
     }
 
     private boolean estDeclaration() {
-        return uniteCourante.getWord().equals("entier"); //TODO adapter avec les tableaux
+        String motCourant = uniteCourante.getWord();
+        return motCourant.equals("entier") || motCourant.equals("tableau");
     }
 
     private boolean estIdf() {

@@ -1,0 +1,17 @@
+programme test {
+    tableau [ 5 ] tab ;
+    tableau [ 5 ] ages ;
+    entier x ;
+    entier y ;
+    x := ages [ 0 ] ;
+    tab [ 0 ] := tab [ 2 ] ;
+    tab [ 0 ] := tab [ x ] ;
+    tab [ x ] := tab [ 2 ] ;
+    tab [ x ] := tab [ y ] ;
+    ages [ 0 ] := 18 ;
+    ages [ 0 ] := 5 ;
+    ages [ x ] := 20 ;
+    ages [ 2 ] := y ;
+    ages [ y ] := x ;
+    ages [ 4 ] := x ;
+}

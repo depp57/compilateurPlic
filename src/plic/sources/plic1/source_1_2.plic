@@ -1,0 +1,20 @@
+programme test {
+    entier x ;
+
+    entier y ;
+
+    tableau [ 3 ] tab ;
+
+    x := 3 ;
+    y := 5 ;
+
+    y := x ;
+
+    tab [ 0 ] := 5 ;
+
+    tab [ 0 ] := x ;
+
+    tab [ 0 ] := tab [ 2 ] ;
+
+    tab [ x ] := 1 ;
+}

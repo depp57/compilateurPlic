@@ -6,9 +6,7 @@ public abstract class Expression {
 
     abstract void verifier() throws ErreurSemantique;
 
-    public String toString() {
-        return "Expression";
-    }
+    public abstract String toString();
 
     abstract String toMips();
 }

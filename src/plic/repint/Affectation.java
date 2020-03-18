@@ -5,27 +5,28 @@ import plic.exception.ErreurSemantique;
 public class Affectation extends Instruction {
 
     private Expression expression;
-    private Idf idf;
+    private Acces acces;
 
-    public Affectation(Expression expression, Idf idf) {
+    public Affectation(Acces acces, Expression expression) {
         this.expression = expression;
-        this.idf = idf;
+        this.acces = acces;
     }
 
     @Override
     void verifier() throws ErreurSemantique {
-        idf.verifier();
+        acces.verifier();
         expression.verifier();
     }
 
     @Override
     String toMips() {
-        return "\t#" + idf.toMips() + " = " + expression.toMips() +
-                "\n\tli $t0, " + expression.toMips() +
-                "\n\tsw $t0, " + idf.getDeplacement() + "($s7)\n";
+        return "\t#" + acces + " = " + expression +
+                "\n\t" + acces.getAdresse() +
+                "\n\t" + expression.toMips() +
+                "\n\tsw $v0, ($a0)\n";
     }
 
     public String toString() {
-        return super.toString() + " affectation : " + idf + " := " +  expression;
+        return super.toString() + " affectation : " + acces + " := " +  expression;
     }
 }

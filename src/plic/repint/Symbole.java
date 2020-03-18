@@ -1,6 +1,6 @@
 package plic.repint;
 
-public class Symbole {
+public abstract class Symbole {
 
     private String type;
     private int deplacement;
@@ -20,6 +20,8 @@ public class Symbole {
     public void setDeplacement(int deplacement) {
         this.deplacement = deplacement;
     }
+
+    public abstract int tailleAllocation();
 
     public String toString() {
         return "Symbole : " + type + " deplacement : " + deplacement;

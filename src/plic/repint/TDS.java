@@ -33,7 +33,7 @@ public class TDS {
 
     private void allouerMemoire(Symbole symbole) {
         symbole.setDeplacement(cptDepl);
-        cptDepl -= 4; //TODO à changer quand il yaura les tableaux
+        cptDepl -= symbole.tailleAllocation();
     }
 
     public int nbDeclarations() {
