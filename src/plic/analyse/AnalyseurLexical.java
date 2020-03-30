@@ -48,19 +48,16 @@ public class AnalyseurLexical {
      * @return Token Token suivant contenant le mot et la ligne
      */
     public Token next() {
-        if (line == null)
-            if (!nextLine()) return new Token("EOF", lineCounter); //Si il n'y a plus de ligne retourne EOF
+        if (line == null && !nextLine()) return new Token("EOF", lineCounter);
 
         Token nextWord = nextWord();
-        if (nextWord == null)
-            return next();
-        else {
-            boolean isComment = isComment(nextWord.getWord());
-            if (isComment)
-                return nextLine() ? next() : new Token("EOF", lineCounter);
-            return nextWord;
+
+        while (nextWord == null || isComment(nextWord.getWord())) {
+            if (!nextLine()) return new Token("EOF", lineCounter);
+            nextWord = nextWord();
         }
 
+        return nextWord;
     }
 
     /**
