@@ -1,0 +1,6 @@
+programme deborde {
+	entier a ;
+	tableau [ 5 ]  t1  ;
+	a := 10 ;
+	c := t [  a  ] ;
+}

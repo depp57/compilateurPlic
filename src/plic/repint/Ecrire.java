@@ -17,9 +17,9 @@ public class Ecrire extends Instruction {
 
     @Override
     String toMips() {
-        final String NEW_LINE = "\t#retour à la ligne\n" +
-                                "\tli $v0, 4\n" +
-                                "\tla $a0, newline\n" +
+        final String NEW_LINE = "\t#retour a la ligne\n" +
+                                "\tli $v0, 11\n" +
+                                "\tli $a0, '\\n'\n" +
                                 "\tsyscall";
 
         return  "\t#ecrire " + expression +

@@ -1,0 +1,30 @@
+programme test {
+    entier x ;
+
+    entier y ;
+
+    tableau [ 3 ] tab ;
+
+    x := 3 ;
+    y := 5 ;
+
+    y := x ;
+
+    tab [ 0 ] := 5 ;
+
+    tab [ 0 ] := x ;
+
+    tab [ 0 ] := tab [ 2 ] ;
+
+    x := 1 ;
+
+    tab [ x ] := x ;
+
+    ecrire tab [ 0 ] ; //0
+
+    ecrire tab [ tab [ tab [ tab [ tab [ x ] ] ] ] ] ; //1
+
+    x := 3 ;
+
+    tab [ x ] := 1 ; //arrayOutOfBounds
+}

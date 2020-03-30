@@ -1,0 +1,29 @@
+programme test {
+
+    entier x ; entier y ;
+    tableau [ 3 ] tab ;
+    tableau [ 2 ] tabDeux ;
+
+    tabDeux [ 0 ] := 0 ; tabDeux [ 1 ] := 1 ; //affectations simples
+
+    tab [ tabDeux [ tabDeux [ 1 ] ] ] := 1 ; // tab [1] = 1
+
+    ecrire tab [ 1 ] ; //ECRIRE 1
+    ecrire tabDeux [ tabDeux [ 1 ] ] ; //ECRIRE 1
+    ecrire tab [ tabDeux [ tabDeux [ 1 ] ] ] ; //ECRIRE 1
+
+    tab [ x ] := tabDeux [ tab [ tabDeux [ 1 ] ] ] ; //tab [0] = 1
+    ecrire tab [ 1 ] ; //ECRIRE 1
+
+    ecrire tab [ x ] ; // ECRIRE 1
+
+    ecrire y ; // ECRIRE 0
+
+    ecrire tab [ y ] ; // ECRIRE 1
+
+    ecrire tab [ 1 ] ; // ECRIRE 1
+
+    ecrire tabDeux [ 0 ] ; // ECRIRE 0
+
+    ecrire tabDeux [ tab [ 1 ] ] ; //ECRIRE 1
+}

@@ -1,0 +1,11 @@
+programme sommeSimple {
+    entier x ;
+    entier y ;
+
+    x := 1 ;
+    y := 2 ;
+
+    x := x + y ;
+
+    ecrire x ;
+}

@@ -1,0 +1,9 @@
+programme inferieur {
+    entier x ;
+    entier y ;
+
+    x := 7 ;
+    y := 2 ;
+
+    ecrire ( x < y ) ;
+}

@@ -13,9 +13,12 @@ public class AccesTableau extends Acces {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {
+    public void verifier() throws ErreurSemantique {
         idf.verifier();
         expression.verifier();
+
+        if (!expression.getType().equals("entier"))
+            throw new ErreurSemantique("L'indice d'un accès tableau doit être de type entier | '" + idf + "' (ligne:" + idf.getLigne() + ")");
 
         if (!TDS.getInstance().identifier(new Entree(idf.toString())).getType().equals("tableau"))
             throw new ErreurSemantique("Accès à une variable non tableau, comme si elle était un tableau | '" + idf + "' (ligne:" + idf.getLigne() + ")");
@@ -27,7 +30,7 @@ public class AccesTableau extends Acces {
     }
 
     @Override
-    String toMips() {
+    public String toMips() {
         return getAdresse() +
                 "\n\tlw $v0, ($a0)";
     }
@@ -39,11 +42,28 @@ public class AccesTableau extends Acces {
 
     @Override
     public String getAdresse() {
-        return "la $a0, " + getDeplacement() + "($s7)" +
-                "\n\t" + expression.toMips() +
+        final String CHECK_IN_BOUNDS =
+            "\n\t# Verifie si l acces est bien dans les bornes du tableau : " + idf +
+            "\n\tli $t2, " + idf.getLigne() +
+            "\n\tli $v1, " + getTailleTableau() +
+            "\n\tbge $v0, $v1, arrayOutOfBounds  # si indice > tableau.length -> erreur" +
+            "\n\tli $v1, 0" +
+            "\n\tblt $v0, $v1, arrayOutOfBounds  # si indice <= 0 -> erreur";
+
+        return  expression.toMips() + "\n" +
+                "\n\tla $a0, " + getDeplacement() + "($s7)" +
+                CHECK_IN_BOUNDS +
                 "\n\tli $a1, 4      #" +
-                "\n\tmult $v0, $a1  # Multiplication par 4 de l'indice | adresse de tab[2] est 2*4 en dessous de la 1ère variable du tab (tab[0]) " +
-                "\n\tmflo $v0       #" +
+                "\n\tmulu $v0, $v0, $a1  # Calcul de l indice" +
                 "\n\tsub $a0, $a0, $v0";
+    }
+
+    private int getTailleTableau() {
+        return ((SymboleTableauEntier)TDS.getInstance().identifier(new Entree(idf.toString()))).getTaille();
+    }
+
+    @Override
+    public String getType() {
+        return "entier";
     }
 }

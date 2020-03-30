@@ -11,7 +11,7 @@ public class Nombre extends Expression {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {}
+    public void verifier() throws ErreurSemantique {}
 
     @Override
     public String toString() {
@@ -19,7 +19,12 @@ public class Nombre extends Expression {
     }
 
     @Override
-    String toMips() {
+    public String toMips() {
         return "li $v0, " +  val;
+    }
+
+    @Override
+    public String getType() {
+        return "entier";
     }
 }

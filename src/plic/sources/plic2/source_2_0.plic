@@ -1,0 +1,15 @@
+programme somme {
+    entier x ;
+    entier y ;
+    tableau [ 2 ] tab ;
+
+    tab [ 1 ] := 5 ;
+    x := 1 ;
+    y := 2 ;
+    x := x + ( x + ( y + ( x + tab [ 1 ] ) ) ) ;
+
+    ecrire x ; // ECRIRE 10
+    ecrire y ; // ECRIRE 2
+
+    ecrire ( x = y ) et non ( x < y ) ; // ECRIRE 0
+}

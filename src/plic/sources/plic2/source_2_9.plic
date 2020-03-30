@@ -1,0 +1,16 @@
+programme et {
+    entier x ;
+    entier y ;
+
+    x := 7 ;
+    y := 2 ;
+
+    ecrire x = y ; //0
+
+    ecrire x # y ; //1
+
+    ecrire x > y ; //1
+
+    ecrire ( x = y ) et ( x # y ) ; // 0 et 1 -> 0
+    ecrire ( x # y ) et ( x > y ) ; // 1 et 1 -> 1
+}

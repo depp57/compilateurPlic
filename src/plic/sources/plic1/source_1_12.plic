@@ -1,0 +1,13 @@
+programme ok {
+	entier a ;
+	entier b ;
+	tableau [ 5 ] t ;
+	tableau [ 8 ]  tt ;
+	b := 20 ;
+	t [ 1 ] := b ;
+	tt [ 7 ] := b ;
+	a := t [ 1 ] ;
+	ecrire a ; 
+	b := tt [ 7 ] ;
+	ecrire a ; 
+}

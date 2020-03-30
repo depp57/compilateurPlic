@@ -1,0 +1,12 @@
+programme ok {
+	entier a ;
+	entier b ;
+	tableau [ 5 ]  t  ;
+	entier c ; 
+	t [ 1 ] := 2 ;
+	t [ 2 ] := 3 ;
+	t [ 3 ] := 4 ;
+	t [ t [ 3 ] ] := 10 ; 
+	c := t [ 4  ] ;
+	ecrire c ; 
+}

@@ -1,0 +1,11 @@
+programme soustraction {
+    entier x ;
+    entier y ;
+
+    x := 1 ;
+    y := 2 ;
+
+     x := x - ( ( y + 6 ) - 8 )  ;
+
+    ecrire x ; // ECRIRE 1
+}

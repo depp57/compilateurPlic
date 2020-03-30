@@ -1,0 +1,17 @@
+programme elNUNZIOOOOOOOOOOOOOOOOOOOOOOOOO { // COMMENTAIRE
+     entier x ;
+     entier y ;
+
+     x := 7 ;
+     y := 6 ;
+
+     ecrire ( non x > - ( y * x ) ) ; // ECRIRE 0
+
+     ecrire - ( 5 ) ; //ECRIRE -5
+     ecrire - ( x ) ; //ECRIRE -7
+
+     ecrire - ( x * 4 ) ; //ECRIRE -28
+
+     ecrire - ( x ) + ( x * 2 ) ; //ECRIRE 0
+ }
+ //COMMENTAIRE

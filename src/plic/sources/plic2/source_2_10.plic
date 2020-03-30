@@ -1,0 +1,19 @@
+programme ou {
+    entier x ;
+    entier y ;
+
+    x := 7 ;
+    y := 2 ;
+
+    ecrire x = y ; //0
+
+    ecrire x < y ; //0
+
+    ecrire x # y ; //1
+
+    ecrire x > y ; //1
+
+    ecrire ( x = y ) ou ( x < y ) ; // 0 ou 0 -> 0
+    ecrire ( x = y ) ou ( x # y ) ; // 0 ou 1 -> 1
+    ecrire ( x # y ) ou ( x > y ) ; // 1 ou 1 -> 1
+}

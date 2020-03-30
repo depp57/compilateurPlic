@@ -1,0 +1,6 @@
+programme erreurSynt {
+	entier a ;
+	tableau  [ 5 ] t;
+	t [ a + 1 ] := 88 ;
+	
+}

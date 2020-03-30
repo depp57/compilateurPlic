@@ -1,0 +1,9 @@
+programme negationEntiere {
+     entier x ;
+
+     x := 7 ;
+
+     ecrire x ; // 7
+
+     ecrire - ( x ) ; // -7
+ }

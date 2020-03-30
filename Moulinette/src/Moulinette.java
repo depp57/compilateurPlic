@@ -7,16 +7,15 @@ import java.util.stream.Stream;
 class Moulinette {
 
     private static int errorCounter = 0;
-    private final String DIR;
+    private String DIR ="sources/plic";
     private final static String PATH_TO_JAR = "Plic.jar";
-    private final String PATH_TO_MARS;
+    private final String PATH_TO_MARS = "Mars4_5.jar";
     private final int PLIC_VERSION;
     private final String PATH_TEMP_FILE = "output.asm";
 
-    private Moulinette(String PATH_TO_MARS, String DIR, int PLIC_VERSION) {
-        this.DIR = DIR;
+    private Moulinette(int PLIC_VERSION) {
         this.PLIC_VERSION = PLIC_VERSION;
-        this.PATH_TO_MARS = PATH_TO_MARS;
+        DIR += PLIC_VERSION;
         File checkDir = new File(DIR);
         if (!checkDir.exists() || !checkDir.isDirectory())
             System.err.println("ERREUR: Le dossier " + DIR + " n'existe pas");
@@ -133,9 +132,9 @@ class Moulinette {
     }
 
     public static void main(String[] args) {
-        if (args.length == 3)
-            new Moulinette(args[0], args[1], Integer.parseInt(args[2]));
+        if (args.length == 1)
+            new Moulinette(Integer.parseInt(args[0]));
         else
-            System.out.println("usage : java -jar Moulinette.java [pathToMars.jar] [pathToTests] [plicVersion (0/1...)]");
+            System.out.println("usage : java -jar Moulinette.java [plicVersion (0/1...)]");
     }
 }

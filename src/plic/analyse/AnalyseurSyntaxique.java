@@ -4,6 +4,7 @@ import plic.exception.DoubleDeclaration;
 import plic.exception.ErreurSemantique;
 import plic.exception.ErreurSyntaxique;
 import plic.repint.*;
+import plic.repint.operateur.*;
 
 import java.io.File;
 import java.util.Arrays;
@@ -25,6 +26,11 @@ public class AnalyseurSyntaxique {
                                                 "alors", "sinon", "pour", "dans", "repeter", "tantque", "non"};
 
     /**
+     * Opérateurs réservés au langage
+     */
+    private static final String[] operateurs = {"+", "-", "*", "et", "ou", "<", ">", "=", "#", "<=", ">="};
+
+    /**
      * Token (mot + ligne) courant lu
      */
     private Token uniteCourante;
@@ -38,6 +44,7 @@ public class AnalyseurSyntaxique {
         Bloc bloc = analyseProg();
         if (!uniteCourante.getWord().equals("EOF"))
             throw new ErreurSyntaxique("EOF attendu | uniteCourante : " + uniteCourante);
+
         return bloc;
     }
 
@@ -65,7 +72,7 @@ public class AnalyseurSyntaxique {
         if (!estEcrire())
             throw new ErreurSyntaxique("'ecrire' attendu | uniteCourante : " + uniteCourante);
         uniteCourante = analex.next();
-        Ecrire instruction = new Ecrire(analyseOperande());
+        Ecrire instruction = new Ecrire(analyseExpression());
         analyseTerminal(";");
         return instruction;
     }
@@ -82,39 +89,86 @@ public class AnalyseurSyntaxique {
         if (!estIdf())
             throw new ErreurSyntaxique("Identificateur attendu pour un accès | uniteCourante : " + uniteCourante);
 
-        Token idf = uniteCourante;
-        uniteCourante = analex.next();
+        Idf idf = analyseIDF();
 
         if (uniteCourante.getWord().equals("[")) { //Si c'est un tableau
             analyseTerminal("[");
             Expression expression = analyseExpression();
             analyseTerminal("]");
-            return new AccesTableau(new Idf(idf), expression);
+            return new AccesTableau(idf, expression);
         }
-        else {
-            return new Idf(idf);
-        }
+
+        return idf;
     }
 
     private Expression analyseExpression() throws ErreurSyntaxique {
-        //TODO à modifier quand on pourra affecter avec un opérateur(s)
-        return analyseOperande();
+        Expression exp1 = analyseOperande();
+
+        //Cas OPERANDE OPERATEUR OPERANDE
+        if (estOperateur()) {
+            String operateur = analyseOperateur();
+            switch (operateur) {
+                case "+" : return new Somme(exp1, analyseOperande());
+                case "-" : return new Soustraction(exp1, analyseOperande());
+                case "*" : return new Multiplication(exp1, analyseOperande());
+                case "<" : return new Inferieur(exp1, analyseOperande());
+                case ">" : return new Superieur(exp1, analyseOperande());
+                case "<=" : return new InferieurOuEgal(exp1, analyseOperande());
+                case ">=" : return new SuperieurOuEgal(exp1, analyseOperande());
+                case "=" : return new Egal(exp1, analyseOperande());
+                case "#" : return new Different(exp1, analyseOperande());
+                case "et" : return new Et(exp1, analyseOperande());
+                case "ou" : return new Ou(exp1, analyseOperande());
+
+                default: throw new ErreurSyntaxique("Mauvais opérateur | " + uniteCourante);
+            }
+        }
+
+        return exp1;
     }
 
     private Expression analyseOperande() throws ErreurSyntaxique {
-        //TODO à modifier :  | ACCES | - EXPRESSION | non EXPRESSION | ( EXPRESSION )
         Expression expression;
 
         if (estCsteEntiere()) {
             expression = new Nombre(Integer.parseInt(uniteCourante.getWord()));
             uniteCourante = analex.next();
         }
+
         else if (estIdf())
             expression = analyseAcces();
+
+        //Cas expression booléenne
+        else if (estTerminal("non")) {
+            analyseTerminal("non");
+            expression = new NegationBooleen(analyseExpression());
+        }
+
+        //Cas expression entière
+        else if (estTerminal("-") || estTerminal("(")) {
+            boolean negative = estTerminal("-");
+            if (negative) analyseTerminal("-");
+
+            analyseTerminal("(");
+            expression = analyseExpression();
+            analyseTerminal(")");
+
+            if (negative) expression = new NegationEntier(expression);
+        }
+
         else
-            throw new ErreurSyntaxique("Mauvais opérande : " + uniteCourante);
+            throw new ErreurSyntaxique("Mauvais opérande | " + uniteCourante);
 
         return expression;
+    }
+
+    private String analyseOperateur() throws ErreurSyntaxique {
+        if (!estOperateur())
+            throw new ErreurSyntaxique("Mauvais opérateur | " + uniteCourante);
+
+        String operateur = uniteCourante.getWord();
+        uniteCourante = analex.next();
+        return operateur;
     }
 
     private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
@@ -196,7 +250,7 @@ public class AnalyseurSyntaxique {
     }
 
     private boolean estAffectation() {
-        return estIdf(); //TODO quand il y'aura les tableaux idf [ EXPRESSION ]
+        return estIdf();
     }
 
     private boolean estEcrire() {
@@ -218,5 +272,13 @@ public class AnalyseurSyntaxique {
 
     private boolean estCsteEntiere() {
         return uniteCourante.getWord().matches("[0-9]+");
+    }
+
+    private boolean estOperateur() {
+        return Arrays.asList(operateurs).contains(uniteCourante.getWord());
+    }
+
+    private boolean estTerminal(String mot) {
+        return uniteCourante.getWord().equals(mot);
     }
 }

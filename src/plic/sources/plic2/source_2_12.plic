@@ -1,0 +1,13 @@
+programme negationBooleenne {
+     entier x ;
+     entier y ;
+
+     x := 7 ;
+     y := 2 ;
+
+     ecrire x # y ; //1
+
+     ecrire non x # y ; //0
+
+     ecrire non ( x # y ) ; //0
+ }

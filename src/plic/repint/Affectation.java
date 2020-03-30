@@ -16,13 +16,18 @@ public class Affectation extends Instruction {
     void verifier() throws ErreurSemantique {
         acces.verifier();
         expression.verifier();
+
+        if (!acces.getType().equals("entier") || !expression.getType().equals("entier"))
+            throw new ErreurSemantique("Affectation de type non entier | '" + acces + " := " + expression + "'");
     }
 
     @Override
     String toMips() {
         return "\t#" + acces + " = " + expression +
-                "\n\t" + acces.getAdresse() +
                 "\n\t" + expression.toMips() +
+                "\n\t" + Outils.empilerV0() +
+                "\n\t" + acces.getAdresse() +
+                "\n\t" + Outils.depiler("$v0") +
                 "\n\tsw $v0, ($a0)\n";
     }
 

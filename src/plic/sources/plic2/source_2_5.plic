@@ -1,0 +1,11 @@
+programme multiplication {
+    entier x ;
+    entier y ;
+
+    x := 7 ;
+    y := 9 ;
+
+    x := x * y ;
+
+    ecrire x ; // ECRIRE 63
+}

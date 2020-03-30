@@ -1,0 +1,14 @@
+programme test {
+    entier x ;
+    entier y ;
+    tableau [ 0 ] tab ;
+    x := 5 ;
+    y := 10 ;
+    tab [ 0 ] := 15 ;
+    tab [ 1 ] := 20 ;
+
+    ecrire x ;
+    ecrire y ;
+    ecrire tab [ 0 ] ;
+    ecrire tab [ 1 ] ;
+}

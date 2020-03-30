@@ -14,7 +14,7 @@ public class Idf extends Acces {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {
+    public void verifier() throws ErreurSemantique {
         if (TDS.getInstance().identifier(new Entree(nom)) == null)
             throw new ErreurSemantique("Idf non déclaré : '" + nom + "' (ligne:" + ligne + ")");
     }
@@ -35,8 +35,13 @@ public class Idf extends Acces {
     }
 
     @Override
-    String toMips() {
+    public String toMips() {
         return "lw $v0, " + getDeplacement() + "($s7)";
+    }
+
+    @Override
+    public String getType() {
+        return TDS.getInstance().identifier(new Entree(nom)).getType();
     }
 
     public int getLigne() {

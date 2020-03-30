@@ -1,0 +1,14 @@
+programme ArrayOutOfBounds {
+    entier x ;
+    entier y ;
+    tableau [ 3 ] tab ;
+
+    x := 1 ;
+    y := 2 ;
+
+    x := x - y ;
+
+    tab [ x ] := 8 ; //ArrayOutOfBounds
+
+    ecrire x ; // ECRIRE -1
+}

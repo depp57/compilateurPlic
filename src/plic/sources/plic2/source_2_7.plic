@@ -1,0 +1,31 @@
+programme comparaisons {
+    entier x ;
+    entier y ;
+
+    x := 7 ;
+    y := 2 ;
+
+    ecrire x < y  ; // ECRIRE 0
+
+    y := 10 ;
+
+    ecrire ( x < y ) ; // ECRIRE 1
+
+    y := 5 ;
+
+    ecrire ( x < y ) ; // ECRIRE 0
+
+    ecrire ( x > y ) ; // ECRIRE 1
+
+    ecrire x > y  ; // ECRIRE 1
+
+
+    ecrire x <= y  ; // ECRIRE 0
+
+    ecrire ( x <= y ) ; // ECRIRE 0
+
+
+    ecrire x >= y  ; // ECRIRE 1
+
+    ecrire ( x >= y ) ; // ECRIRE 1
+}
