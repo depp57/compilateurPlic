@@ -1,0 +1,30 @@
+programme conditionsAlorsSinon {
+
+    entier x ;
+    entier y ;
+
+    x := 3 ;
+    y := 5 ;
+
+    si ( x < y ) alors {
+        ecrire x ;              // 3
+    }
+    sinon {
+        ecrire y ;
+    }
+
+    si ( x > y ) alors {
+        ecrire x ;
+    }
+    sinon {
+        ecrire y ;              // 5
+    }
+
+    si ( x > y ) alors {
+        ecrire x ;              // RIEN car FALSE
+    }
+
+    si ( x < y ) alors {
+        ecrire x ;              // 3 car TRUE
+    }
+}

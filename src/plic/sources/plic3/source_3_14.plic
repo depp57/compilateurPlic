@@ -1,0 +1,18 @@
+programme pourImbriques {
+    entier x ;
+    entier y ;
+
+    pour x dans 1 .. 2 repeter {
+        ecrire x ;
+
+        pour y dans x .. 4 repeter {
+            ecrire y ;
+
+        }
+    }
+
+    ecrire x ;
+    ecrire y ;
+}
+
+//1 1 2 3 4 2 2 3 4

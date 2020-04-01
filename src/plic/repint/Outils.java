@@ -11,4 +11,10 @@ public abstract class Outils {
         return "add $sp, $sp, 4    # Depile v0" +
                 "\n\tlw " + registre + ", ($sp)";
     }
+
+    public static int getCptBranch() {
+        int cptBranch = TDS.getInstance().getCptBranch();
+        TDS.getInstance().incrementsCptBranch();
+        return cptBranch;
+    }
 }

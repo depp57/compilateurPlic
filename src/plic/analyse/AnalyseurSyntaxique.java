@@ -4,6 +4,7 @@ import plic.exception.DoubleDeclaration;
 import plic.exception.ErreurSemantique;
 import plic.exception.ErreurSyntaxique;
 import plic.repint.*;
+import plic.repint.instruction.*;
 import plic.repint.operateur.*;
 
 import java.io.File;
@@ -55,24 +56,94 @@ public class AnalyseurSyntaxique {
 
         analyseIDF();
 
-        return analyseBloc();
+        return analyseBloc(true);
     }
 
-    private Instruction analyseInstruction() throws ErreurSyntaxique {
-        //TODO à modifier : CONDITION | ITERATION
-        if (estEcrire()) //TODO quand on pourra lire
-            return analyseEcrire();
+    private Instruction analyseInstruction() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+        if (estES())
+            return analyseES();
         else if (estAffectation())
             return analyseAffectation();
+        else if (estCondition())
+            return analyseCondition();
+        else if (estIteration())
+            return analyseIteration();
         else
             throw new ErreurSyntaxique("Instruction attendue | uniteCourante : " + uniteCourante);
     }
 
-    private Ecrire analyseEcrire() throws ErreurSyntaxique {
-        if (!estEcrire())
-            throw new ErreurSyntaxique("'ecrire' attendu | uniteCourante : " + uniteCourante);
+    private Instruction analyseIteration() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+        if (!estIteration())
+            throw new ErreurSyntaxique("'Iteration' attendue (pour ou tantque) | uniteCourante : " + uniteCourante);
+
+        if (uniteCourante.getWord().equals("pour")) return analysePour();
+        else return analyseTantQue();
+    }
+
+    private Instruction analyseTantQue() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         uniteCourante = analex.next();
-        Ecrire instruction = new Ecrire(analyseExpression());
+
+        analyseTerminal("(");
+        Expression expression = analyseExpression();
+        analyseTerminal(")");
+
+        analyseTerminal("repeter");
+        Bloc bloc = analyseBloc(false);
+
+        return new TantQue(bloc, expression);
+    }
+
+    private Instruction analysePour() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+        uniteCourante = analex.next();
+        Idf idf = analyseIDF();
+        analyseTerminal("dans");
+
+        Expression expressionG = analyseExpression();
+        analyseTerminal("..");
+        Expression expressionD = analyseExpression();
+
+        analyseTerminal("repeter");
+        Bloc bloc = analyseBloc(false);
+
+        return new Pour(bloc, idf, expressionG, expressionD);
+    }
+
+    private Instruction analyseCondition() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+        if (!estCondition())
+            throw new ErreurSyntaxique("'si' attendu | uniteCourante : " + uniteCourante);
+        uniteCourante = analex.next();
+
+        analyseTerminal("(");
+        Expression expression = analyseExpression();
+        analyseTerminal(")");
+
+        analyseTerminal("alors");
+        Bloc alors = analyseBloc(false);
+
+        if (uniteCourante.getWord().equals("sinon")) { //Si il y'a un sinon alors récuperer le bloc du sinon
+            uniteCourante = analex.next();
+            Bloc sinon = analyseBloc(false);
+            return new ConditionAlorsSinon(expression, alors, sinon);
+        }
+
+        return new ConditionAlors(expression, alors);
+    }
+
+    private EntreeSortie analyseES() throws ErreurSyntaxique {
+        if (!estES())
+            throw new ErreurSyntaxique("'ES' attendue (ecrire ou lire) | uniteCourante : " + uniteCourante);
+
+        String motCourant = uniteCourante.getWord();
+        EntreeSortie instruction;
+
+        uniteCourante = analex.next();
+
+        if(motCourant.equals("ecrire"))
+            instruction = new Ecrire(analyseExpression());
+
+        else
+            instruction = new Lire(analyseIDF());
+
         analyseTerminal(";");
         return instruction;
     }
@@ -171,12 +242,14 @@ public class AnalyseurSyntaxique {
         return operateur;
     }
 
-    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
+    private Bloc analyseBloc(boolean peutDeclarer) throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         Bloc bloc = new Bloc();
         analyseTerminal("{");
 
-        while (estDeclaration())
-            analyseDeclaration();
+        if (peutDeclarer) {
+            while (estDeclaration())
+                analyseDeclaration();
+        }
 
         bloc.ajouter(analyseInstruction());
         while (estInstruction())
@@ -244,17 +317,25 @@ public class AnalyseurSyntaxique {
        |   METHODES POUR VERIFIER LE TYPE DE L'UNITE COURANTE   |
        ---------------------------------------------------------- */
     private boolean estInstruction() {
-        //TODO à modifier : CONDITION | ITERATION
-        //TODO quand on pourra lire
-        return estEcrire() || estAffectation();
+        return estES() || estAffectation() || estCondition() || estIteration();
+    }
+
+    private boolean estIteration() {
+        String motCourant = uniteCourante.getWord();
+        return motCourant.equals("pour") || motCourant.equals("tantque");
+    }
+
+    private boolean estCondition() {
+        return uniteCourante.getWord().equals("si");
     }
 
     private boolean estAffectation() {
         return estIdf();
     }
 
-    private boolean estEcrire() {
-        return uniteCourante.getWord().equals("ecrire");
+    private boolean estES() {
+        String motCourant = uniteCourante.getWord();
+        return motCourant.equals("ecrire") || motCourant.equals("lire");
     }
 
     private boolean estDeclaration() {

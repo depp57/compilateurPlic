@@ -7,12 +7,13 @@ import java.util.HashMap;
 public class TDS {
 
     private int cptDepl;
+    private int cptBranch;
     private HashMap<Entree, Symbole> map;
+
     private static final TDS instance = new TDS();
 
     private TDS() {
         map = new HashMap<>();
-        cptDepl = 0;
     }
 
     public static synchronized TDS getInstance() {
@@ -42,6 +43,14 @@ public class TDS {
 
     public int getCptDepl() {
         return cptDepl;
+    }
+
+    public int getCptBranch() {
+        return cptBranch;
+    }
+
+    public void incrementsCptBranch() {
+        cptBranch++;
     }
 
     public String toString() {

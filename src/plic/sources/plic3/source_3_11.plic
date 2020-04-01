@@ -1,0 +1,27 @@
+programme tantQueImbriques {
+
+    entier x ;
+    entier y ;
+
+    x := 3 ;
+    y := 8 ;
+
+    tantque ( x < y ) repeter {
+        ecrire x ;
+
+        tantque ( x < 6 ) repeter {
+            ecrire x * 2 ;
+            x := x + 1 ;
+        }
+
+        si ( x >= 6 ) alors {
+            x := x + 1 ;
+        }
+    }
+
+    // 3
+    // 6
+    // 8
+    // 10
+    // 7
+}

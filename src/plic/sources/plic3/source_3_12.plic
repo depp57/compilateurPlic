@@ -1,0 +1,23 @@
+programme testPour {
+    tableau [ 3 ] ages ;
+    entier x ;
+    entier indice ;
+    entier ageCourant ;
+
+    x := ages [ 0 ] ;
+    indice := 0 ;
+    ages [ 0 ] := 18 ;
+    ages [ 1 ] := 20 ;
+    ages [ 2 ] := 22 ;
+
+   pour ageCourant dans 2 .. 3 repeter
+   {
+       ecrire ageCourant ;
+   }
+
+    tantque ( x <= 20 ) repeter {
+        x := ages [ indice ] ;
+        ecrire x ;
+        indice := indice + 1 ;
+    }
+}

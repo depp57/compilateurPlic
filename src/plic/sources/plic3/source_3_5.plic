@@ -1,0 +1,11 @@
+programme iterationTantQue {
+    entier x ;
+
+    x := 0 ;
+
+    tantque ( x < 5 ) repeter
+    {
+        ecrire x ;
+        x := x + 1 ;
+    }
+}

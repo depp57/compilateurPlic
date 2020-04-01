@@ -1,0 +1,12 @@
+programme conditionsAlors {
+
+    entier x ;
+    entier y ;
+
+    lire x ;
+    lire y ;
+
+    si ( x < y ) alors {
+        ecrire x ;
+    }
+}

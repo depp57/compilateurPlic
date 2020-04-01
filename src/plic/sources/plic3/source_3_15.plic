@@ -1,0 +1,58 @@
+programme elTestQueTuPasseSeulementSiTouATOUTBon {
+    entier x ;
+    entier y ;
+
+    tableau [ 10 ] tabDix ;
+
+    x := 5 ;
+    y := x ;
+    x := 7 ; //y = 5
+
+    ecrire y ; //ECRIRE 5
+
+    pour x dans 0 .. 9 repeter {
+        tabDix [ x ] := ( x + 1 ) * - ( 2 ) ;
+    }
+    // -2 à - 20
+    ecrire tabDix [ y ] ; //ECRIRE -12
+
+    pour x dans 0 .. 0 repeter {
+        ecrire x ; //ECRIRE 0
+    }
+
+
+    pour x dans 1 .. 2 repeter {
+        ecrire x ;
+
+        pour y dans x .. x * 2 repeter {
+            ecrire x * y ;
+        }
+    }
+    //ECRIRE 1 1 2 2 4 6 8
+
+    ecrire x - - ( y ) ; //ECRIRE 6 ? PAS BON POUR VA TROP LOIN
+
+
+    tantque ( 5 < 2 ) repeter {
+        ecrire 100 ;
+    }
+
+    x := 1 ;
+    y := 5 ;
+
+    tantque ( x < y ) repeter {
+        si ( ( x * 2 ) < y ) alors {
+            ecrire y - ( x * 2 ) ;
+            y := y - 1 ;
+        }
+        sinon {
+            y := y + 3 ;
+            tantque ( x < y ) repeter {
+                ecrire x ;
+                x := x + 1 ;
+            }
+        }
+    }
+}
+
+//5 -12 0 1 1 2 2 4 6 8 6 3 2 1 1 2 3 4

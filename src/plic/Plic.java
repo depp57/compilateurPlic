@@ -16,7 +16,12 @@ public class Plic {
             if (!file.exists()) throw new ErreurSyntaxique(fileName + " n'a pas été trouvé");
             Bloc bloc = new AnalyseurSyntaxique(file).analyse();
             bloc.verifier();
-            System.out.print(bloc.toMips());
+
+            StringBuilder mips = new StringBuilder(bloc.initMips());
+            mips.append(bloc.toMips());
+            mips.append(bloc.endMips());
+
+            System.out.print(mips);
         }
         catch (ErreurSyntaxique | DoubleDeclaration | ErreurSemantique e) {
             System.out.println(e.getMessage());

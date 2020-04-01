@@ -1,0 +1,15 @@
+programme lecture {
+
+    entier x ;
+    entier y ;
+
+    lire x ;
+    lire y ;
+
+    ecrire x ;
+    ecrire y ;
+
+    ecrire x + y ;
+    ecrire x - y ;
+    ecrire x * y ;
+}

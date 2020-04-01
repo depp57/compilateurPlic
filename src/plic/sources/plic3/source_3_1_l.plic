@@ -1,0 +1,12 @@
+programme lireTableau {
+
+    entier x ;
+    entier y ;
+    tableau [ 5 ] tab ;
+
+    lire x ;
+    lire y ;
+    lire tab [ 1 ] ; //Pas bon d'après la grammaire
+
+    ecrire x + y ;
+}

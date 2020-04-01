@@ -1,0 +1,11 @@
+programme entreesSorties {
+
+    entier x ;
+    entier y ;
+    tableau [ 5 ] tab ;
+
+    lire x ;
+    lire y ;
+
+    ecrire x + y ;
+}

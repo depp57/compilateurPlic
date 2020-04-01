@@ -1,8 +1,9 @@
-package plic.repint;
+package plic.repint.instruction;
 
 import plic.exception.ErreurSemantique;
+import plic.repint.Expression;
 
-public class Ecrire extends Instruction {
+public class Ecrire extends EntreeSortie {
 
     private Expression expression;
 
@@ -11,12 +12,12 @@ public class Ecrire extends Instruction {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {
+    public void verifier() throws ErreurSemantique {
         expression.verifier();
     }
 
     @Override
-    String toMips() {
+    public String toMips() {
         final String NEW_LINE = "\t#retour a la ligne\n" +
                                 "\tli $v0, 11\n" +
                                 "\tli $a0, '\\n'\n" +
@@ -31,6 +32,6 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toString() {
-        return super.toString() + " ecrire : " + expression;
+        return "ecrire : " + expression;
     }
 }

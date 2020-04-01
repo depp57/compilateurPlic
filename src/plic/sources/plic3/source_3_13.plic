@@ -1,0 +1,37 @@
+programme pourImbriques {
+    entier x ;
+    entier y ;
+    entier z ;
+
+    pour x dans 1 .. 5 repeter {
+        ecrire x ;
+
+        pour y dans x .. 10 repeter {
+            ecrire y ;
+
+            pour z dans x .. y repeter {
+                ecrire z ;
+            }
+        }
+    }
+}
+
+// 1
+// 2
+// 3
+// 4
+// 5
+
+// 5
+// 6
+// 7
+// 8
+// 9
+// 10
+
+// 5
+// 6
+// 7
+// 8
+// 9
+// 10

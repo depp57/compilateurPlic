@@ -1,0 +1,12 @@
+programme iterationTantQueMauvaiseDeclaration {
+    entier x ;
+
+    x := 0 ;
+
+    tantque ( x < 5 ) repeter
+    {
+        entier z ; //PAS LE DROIT DE DECLARER DANS UN SOUS BLOC
+        ecrire x ;
+        x := x + 1 ;
+    }
+}

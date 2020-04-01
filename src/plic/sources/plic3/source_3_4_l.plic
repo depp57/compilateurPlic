@@ -1,0 +1,11 @@
+programme iterationPour {
+     entier x ;
+     entier y ;
+
+     lire x ;
+     lire y ;
+
+     pour x dans x .. x + y repeter {
+         ecrire x ;
+     }
+ }

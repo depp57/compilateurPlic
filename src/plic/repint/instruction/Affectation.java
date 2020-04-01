@@ -1,6 +1,9 @@
-package plic.repint;
+package plic.repint.instruction;
 
 import plic.exception.ErreurSemantique;
+import plic.repint.Acces;
+import plic.repint.Expression;
+import plic.repint.Outils;
 
 public class Affectation extends Instruction {
 
@@ -13,7 +16,7 @@ public class Affectation extends Instruction {
     }
 
     @Override
-    void verifier() throws ErreurSemantique {
+    public void verifier() throws ErreurSemantique {
         acces.verifier();
         expression.verifier();
 
@@ -22,7 +25,7 @@ public class Affectation extends Instruction {
     }
 
     @Override
-    String toMips() {
+    public String toMips() {
         return "\t#" + acces + " = " + expression +
                 "\n\t" + expression.toMips() +
                 "\n\t" + Outils.empilerV0() +

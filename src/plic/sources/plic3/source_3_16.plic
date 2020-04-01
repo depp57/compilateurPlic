@@ -1,0 +1,11 @@
+programme pourTestTrois {
+    entier x ;
+
+    pour x dans 10 .. 5 repeter {
+        ecrire x ;
+    }
+
+    ecrire x ;
+}
+
+// 0
