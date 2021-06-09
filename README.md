@@ -2,7 +2,7 @@
 
 Compiler for an invented language named _Plic_, produce assembly code for MIPS processors.
 
-It is written with in Java, the code is in French because it was a project for the school @IUT Nancy-Charlemagne.
+It is written with Java, the code is in French because it was a project for the school @IUT Nancy-Charlemagne.
 
 ## Plic grammar
 
